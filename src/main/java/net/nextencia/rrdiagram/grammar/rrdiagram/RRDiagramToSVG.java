@@ -7,9 +7,10 @@
  */
 package net.nextencia.rrdiagram.grammar.rrdiagram;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
+import net.nextencia.rrdiagram.common.Color;
+import net.nextencia.rrdiagram.common.Config;
+import net.nextencia.rrdiagram.common.Insets;
+import net.nextencia.rrdiagram.common.font.Font;
 
 /**
  * @author Christopher Deckers
@@ -30,7 +31,7 @@ public class RRDiagramToSVG {
     return connectorColor;
   }
 
-  private Font loopFont = new Font("Verdana", Font.PLAIN, 10);
+  private Font loopFont = Config.FONT.create("Verdana", Font.PLAIN, 10);
 
   public void setLoopFont(Font loopFont) {
     this.loopFont = loopFont;
@@ -66,7 +67,7 @@ public class RRDiagramToSVG {
     return ruleInsets;
   }
 
-  private Font ruleFont = new Font("Verdana", Font.PLAIN, 12);
+  private Font ruleFont = Config.FONT.create("Verdana", Font.PLAIN, 12);
 
   public void setRuleFont(Font ruleFont) {
     this.ruleFont = ruleFont;
@@ -126,7 +127,7 @@ public class RRDiagramToSVG {
     return literalInsets;
   }
 
-  private Font literalFont = new Font("Verdana", Font.PLAIN, 12);
+  private Font literalFont = Config.FONT.create("Verdana", Font.PLAIN, 12);
 
   public void setLiteralFont(Font literalFont) {
     this.literalFont = literalFont;
@@ -186,7 +187,7 @@ public class RRDiagramToSVG {
     return specialSequenceInsets;
   }
 
-  private Font specialSequenceFont = new Font("Verdana", Font.PLAIN, 12);
+  private Font specialSequenceFont = Config.FONT.create("Verdana", Font.PLAIN, 12);
 
   public void setSpecialSequenceFont(Font specialSequenceFont) {
     this.specialSequenceFont = specialSequenceFont;

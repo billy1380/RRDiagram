@@ -7,9 +7,9 @@
  */
 package net.nextencia.rrdiagram.grammar.model;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -282,14 +282,14 @@ public class BNFToGrammar {
 
   public Grammar convert(String string) {
     try {
-      return convert(new StringReader(string));
+      return convert(new ByteArrayInputStream(string.getBytes()));
     } catch (IOException e) {
       // Doesn't happen
       throw new RuntimeException(e);
     }
   }
 
-  public Grammar convert(Reader reader) throws IOException {
+  public Grammar convert(InputStream reader) throws IOException {
     StringBuilder sb = new StringBuilder();
     List<Rule> ruleList = new ArrayList<Rule>();
     for(int x; (x=reader.read()) != -1; ) {
@@ -342,7 +342,7 @@ public class BNFToGrammar {
     return new Rule(name, expression);
   }
 
-  private static void loadExpression(Chunk parentChunk, Reader reader, char stopChar) throws IOException {
+  private static void loadExpression(Chunk parentChunk, InputStream reader, char stopChar) throws IOException {
     char lastChar = 0;
     StringBuilder sb = new StringBuilder();
     boolean isFirst = true;

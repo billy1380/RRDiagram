@@ -7,13 +7,11 @@
  */
 package net.nextencia.rrdiagram.grammar.rrdiagram;
 
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.font.FontRenderContext;
-import java.awt.font.LineMetrics;
-import java.awt.geom.Rectangle2D;
-
+import net.nextencia.rrdiagram.common.Insets;
 import net.nextencia.rrdiagram.common.Utils;
+import net.nextencia.rrdiagram.common.font.Font;
+import net.nextencia.rrdiagram.common.font.LineMetrics;
+import net.nextencia.rrdiagram.common.font.Rectangle2D;
 import net.nextencia.rrdiagram.grammar.rrdiagram.RRDiagram.SvgContent;
 import net.nextencia.rrdiagram.grammar.rrdiagram.RRDiagramToSVG.BoxShape;
 
@@ -54,7 +52,6 @@ public class RRText extends RRElement {
 
   @Override
   protected void computeLayoutInfo(RRDiagramToSVG rrDiagramToSVG) {
-    FontRenderContext fontRenderContext = new FontRenderContext(null, true, false);
     Font font;
     Insets insets;
     switch(type) {
@@ -72,11 +69,11 @@ public class RRText extends RRElement {
         break;
       default: throw new IllegalStateException("Unknown type: " + type);
     }
-    LineMetrics lineMetrics = font.getLineMetrics(text, fontRenderContext);
-    fontYOffset = Math.round(lineMetrics.getDescent());
-    Rectangle2D stringBounds = font.getStringBounds(text, fontRenderContext);
-    int width = (int)Math.round(stringBounds.getWidth());
-    int height = (int)Math.round(stringBounds.getHeight());
+    LineMetrics lineMetrics = font.getLineMetrics(text);
+    fontYOffset = Math.round(lineMetrics.descent);
+    Rectangle2D stringBounds = font.getStringBounds(text);
+    int width = (int)Math.round(stringBounds.width);
+    int height = (int)Math.round(stringBounds.height);
     int connectorOffset = insets.top + height - fontYOffset;
     width += insets.left + insets.right;
     height += insets.top + insets.bottom;
@@ -163,10 +160,10 @@ public class RRText extends RRElement {
         svgContent.addLineConnector(xOffset + width, yOffset + connectorOffset, xOffset + width - insets.right, yOffset + connectorOffset);
         break;
     }
-    FontRenderContext fontRenderContext = new FontRenderContext(null, true, false);
-    Rectangle2D stringBounds = font.getStringBounds(text, fontRenderContext);
+    
+    Rectangle2D stringBounds = font.getStringBounds(text);
     int textXOffset = xOffset + insets.left;
-    int textYOffset = yOffset + insets.top + (int)Math.round(stringBounds.getHeight()) - fontYOffset;
+    int textYOffset = yOffset + insets.top + (int)Math.round(stringBounds.height) - fontYOffset;
     svgContent.addElement("<text class=\"" + cssTextClass + "\" x=\"" + textXOffset + "\" y=\"" + textYOffset + "\">" + Utils.escapeXML(text) + "</text>");
     if(link != null) {
       svgContent.addElement("</a>");
