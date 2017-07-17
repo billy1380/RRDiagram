@@ -14,6 +14,16 @@ import net.nextencia.rrdiagram.grammar.rrdiagram.RRDiagram;
  */
 public class GrammarToRRDiagram {
 
+  private String linkBase; 
+	
+  public GrammarToRRDiagram(String linkBase) {
+	this.linkBase = linkBase;
+  }
+	
+  public GrammarToRRDiagram() {
+	this("#");
+  }
+  
   public static interface RuleLinkProvider {
     public String getLink(String ruleName);
   }
@@ -21,7 +31,7 @@ public class GrammarToRRDiagram {
   private RuleLinkProvider ruleLinkProvider = new RuleLinkProvider() {
     @Override
     public String getLink(String ruleName) {
-      return "#" + ruleName;
+      return linkBase + ruleName;
     }
   };
 
